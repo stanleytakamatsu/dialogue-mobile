@@ -1,0 +1,26 @@
+version: '3.6'
+services:
+  dialogue-mobile:
+    container_name: dialogue-mobile
+    build:
+      dockerfile: Dockerfile
+      context: .
+    tty: true
+    stdin_open: true
+    ports:
+      - 19000:19000/tcp
+      - 19001:19001/tcp
+    user: node
+    env_file: .env
+    networks:
+      - dialogue-mobile
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+
+networks:
+  dialogue-mobile:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 11.11.1.0/24

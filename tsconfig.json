@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "allowJs": true,
+    "strictPropertyInitialization": false,
+    "target": "es5",
+    "module": "commonjs",
+    "lib": ["es2015", "esnext.asynciterable"],
+    "jsx": "react-native",
+    "removeComments": true,
+    "strict": true,
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowUnreachableCode": true,
+    "noImplicitAny": false,
+    "allowSyntheticDefaultImports": true,
+    "types": ["reflect-metadata", "jest"],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "rootDir": "./",
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noEmit": true
+  }
+}
