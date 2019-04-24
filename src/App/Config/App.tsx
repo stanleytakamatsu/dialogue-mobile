@@ -1,12 +1,13 @@
-import * as React from 'react';
-import { RouterContainer } from './RouterContainer';
 import { AppLoading } from 'expo';
-import { IContainerService } from '../Core/Container/IContainerService';
-import { ApplicationConfiguration } from './ApplicationConfiguration';
-import { Strategies } from '../Core/Container/Strategies';
+import * as React from 'react';
+
 import { ContainerFactory } from '../Core/Container/Factory/ContainerFactory';
-import { IApplicationConfiguration } from './IApplicationConfiguration';
+import { IContainerService } from '../Core/Container/IContainerService';
+import { Strategies } from '../Core/Container/Strategies';
+import { ApplicationConfiguration } from './ApplicationConfiguration';
 import { ContainerRegistry } from './ContainerRegistry';
+import { IApplicationConfiguration } from './IApplicationConfiguration';
+import { RouterContainer } from './RouterContainer';
 
 class App extends React.Component {
   public state = {
@@ -31,18 +32,15 @@ class App extends React.Component {
   private async configureContainer(): Promise<void> {
     this.container = await ContainerFactory.create(Strategies.INVERSIFY);
 
-    const promisedConfig = new Promise<IApplicationConfiguration>(async resolve => {
-      let config = new ApplicationConfiguration();
+    this.container.register<IApplicationConfiguration>(IApplicationConfiguration, () => {
+      return new Promise<IApplicationConfiguration>(async resolve => {
+        let config = new ApplicationConfiguration();
 
-      await config.loadConfig();
+        await config.loadConfig();
 
-      resolve(config);
+        resolve(config);
+      });
     });
-
-    await this.container.register<IApplicationConfiguration>(
-      IApplicationConfiguration,
-      promisedConfig
-    );
 
     const containerRegistry: ContainerRegistry = new ContainerRegistry(this.container);
 

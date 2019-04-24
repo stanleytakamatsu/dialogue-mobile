@@ -1,6 +1,8 @@
-import { INavigationContainerProps } from '../Common/Interface/INavigationContainerProps';
+import { INavigationContainerProps } from '../Core/Interface/INavigationContainerProps';
 
-interface ILoginNavigationProps extends INavigationContainerProps {}
+interface ILoginNavigationProps extends INavigationContainerProps {
+  onChangePasswordInput: string;
+}
 
 const ILoginNavigationProps = Symbol.for('ILoginNavigationProps');
 
