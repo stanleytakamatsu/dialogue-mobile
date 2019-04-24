@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
     "allowJs": true,
     "strictPropertyInitialization": false,
     "target": "es2015",
@@ -11,9 +10,6 @@
     "removeComments": true,
     "strict": true,
     "rootDir": "src",
-    "paths": {
-      "@App/*": ["App/*"]
-    },
     "sourceMap": true,
     "declaration": false,
     "emitDecoratorMetadata": true,
