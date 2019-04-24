@@ -5,9 +5,9 @@ class ConfigStrategy {
   public static async get(env: Environments): Promise<IConfig> {
     switch (env) {
       case Environments.PRODUCTION:
-        return (await import('./Config.Production'))['default']['Config'];
+        return require('./Config.Development')['Config'];
       default:
-        return (await import('./Config.Development'))['default']['Config'];
+        return require('./Config.Development')['Config'];
     }
   }
 }
