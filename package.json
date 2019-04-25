@@ -1,5 +1,5 @@
 {
-  "main": "./AppEntry.js",
+  "main": "./dist/AppEntry.js",
   "scripts": {
     "start": "expo-cli start",
     "android": "expo-cli start --android",
@@ -10,10 +10,15 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "cerialize": "^0.1.18",
     "expo": "32.0.6",
+    "expo-localization": "^4.0.0",
     "inversify": "^5.0.1",
+    "lottie-react-native": "^2.6.1",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-drawer": "^2.5.1",
+    "react-native-indicators": "^0.13.0",
     "react-native-ui-kitten": "^3.1.2",
     "react-native-vector-icons": "^6.4.2",
     "react-navigation": "^3.0.9",
@@ -21,7 +26,7 @@
     "tslib": "1.9.3"
   },
   "devDependencies": {
-    "@types/expo": "^32.0.9",
+    "@types/expo": "^32.0.11",
     "@types/jest": "^24.0.11",
     "@types/react": "^16.8.12",
     "@types/react-native": "^0.57.42",

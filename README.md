@@ -20,7 +20,7 @@ Discover the machine network IP
 ```
 $ hostname -I
 
--> 192.168.0.10 172.15.0.2 11.11.1.1 2804:14c:128:2660:2f4a:ed89:ba4:62
+-> 192.168.0.10 172.15.0.1 11.11.1.2 2854:14c:128:2660:2f4a:ed89:ba4:62
 
 // select the first IP 192.168.0.10
 ```
@@ -50,6 +50,14 @@ Inside the container
 
 ```
 $ yarn
+```
+
+# To build the project
+
+```
+// inside the container
+
+$ tsc
 ```
 
 # To run the project

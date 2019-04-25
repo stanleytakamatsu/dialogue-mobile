@@ -10,13 +10,15 @@ class ContainerService implements IContainerService {
     this.container = container;
   }
 
-  public register<T>(serviceIdentifier: symbol, service: Promise<T>): void {
+  public register<T>(serviceIdentifier: symbol, service: () => Promise<T>): void {
     this.container.register<T>(serviceIdentifier, service);
   }
 
   public async get<T>(serviceIdentifier: symbol): Promise<T> {
     try {
-      return await this.container.get<T>(serviceIdentifier);
+      let factory = await this.container.get<() => T>(serviceIdentifier);
+
+      return factory();
     } catch (e) {
       return this.get<T>(serviceIdentifier);
     }

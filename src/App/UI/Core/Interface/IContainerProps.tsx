@@ -1,5 +1,6 @@
-import { IContainerService } from '../../../Core/Container/IContainerService';
 import { ScreenProps } from 'react-navigation';
+
+import { IContainerService } from '../../../Core/Container/IContainerService';
 
 interface IContainerProps extends ScreenProps {
   container: IContainerService;

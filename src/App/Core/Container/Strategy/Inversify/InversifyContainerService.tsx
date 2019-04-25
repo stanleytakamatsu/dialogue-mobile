@@ -8,8 +8,8 @@ class InversifyContainerService implements IContainerStrategy {
     this.container = new Inversify.Container();
   }
 
-  public register<T>(identifier: symbol, service: Promise<T>): void {
-    this.container.bind<Promise<T>>(identifier).toConstantValue(service);
+  public register<T>(identifier: symbol, service: () => Promise<T>): void {
+    this.container.bind<() => Promise<T>>(identifier).toConstantValue(service);
   }
 
   public async get<T>(identifier: symbol): Promise<T> {

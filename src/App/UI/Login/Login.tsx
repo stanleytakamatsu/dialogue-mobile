@@ -1,44 +1,72 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { RkButton, RkTextInput } from 'react-native-ui-kitten';
-import { FontAwesome } from '@expo/vector-icons';
-import { IApplicationConfiguration } from '../../../App/Config/IApplicationConfiguration';
+
+import { IView } from '../Core/Interface/IView';
+import { ILogin } from './ILogin';
 import { ILoginNavigationProps } from './ILoginNavigationProps';
+import { RkLoginView } from './View/RkLoginView';
+import { SignInCommand } from '../../SignIn/UseCase/Type/Command/SignInCommand';
+import { ISignIn } from '../../SignIn/UseCase/ISignIn';
 
-class Login extends React.Component<ILoginNavigationProps> {
+type State = { username: string; password: string; isLoading: boolean };
+
+class Login extends React.Component<ILoginNavigationProps, State>
+  implements ILogin<ILoginNavigationProps, State> {
+  private signInUseCase: ISignIn;
+
+  private view: IView;
+
+  public constructor(props) {
+    super(props);
+
+    this.state = { ...this.state, isLoading: false };
+
+    console.log(this.state);
+    this.view = new RkLoginView();
+    this.view.attach(this);
+  }
+
   public async componentDidMount(): Promise<void> {
-    const config = await this.props.screenProps.container.get<IApplicationConfiguration>(
-      IApplicationConfiguration
-    );
+    const signInUseCase = await this.props.screenProps.container.get<ISignIn>(ISignIn);
 
-    console.log(config);
+    this.signInUseCase = signInUseCase;
+
+    this.onChangePasswordInput = this.onChangePasswordInput.bind(this);
+    this.onChangeUsernameInput = this.onChangeUsernameInput.bind(this);
+    this.login = this.login.bind(this);
+  }
+
+  public onChangePasswordInput = value => {
+    this.setState({
+      password: value
+    });
+  };
+
+  public onChangeUsernameInput = value => {
+    this.setState({
+      username: value
+    });
+  };
+
+  public async login(): Promise<void> {
+    this.setState({ isLoading: true });
+
+    const { username, password } = this.state;
+    const command = SignInCommand.create(username, password);
+
+    try {
+      const data = await this.signInUseCase.execute(command);
+
+      console.log(data);
+      this.setState({ isLoading: false });
+    } catch (error) {
+      console.log(error);
+      this.setState({ isLoading: false });
+    }
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <Text>Dialogue</Text>
-        <RkTextInput label={<FontAwesome name="user" />} placeholder="Login" />
-        <RkTextInput
-          label={<FontAwesome name="lock" />}
-          secureTextEntry={true}
-          placeholder="password"
-        />
-        <RkButton>Login</RkButton>
-      </View>
-    );
+    return this.view.render();
   }
 }
 
 export { Login };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 5,
-    marginHorizontal: 30,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});

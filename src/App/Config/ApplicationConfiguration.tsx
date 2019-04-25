@@ -1,8 +1,9 @@
-import { IApplicationConfiguration } from './IApplicationConfiguration';
 import { Constants } from 'expo';
+
 import { ConfigStrategy } from './Enviroment/ConfigStrategy';
 import { Environments } from './Enviroment/Environments';
 import { IConfig } from './Enviroment/IConfig';
+import { IApplicationConfiguration } from './IApplicationConfiguration';
 
 class ApplicationConfiguration implements IApplicationConfiguration {
   private config: IConfig;
